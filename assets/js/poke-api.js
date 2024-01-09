@@ -22,14 +22,18 @@ pokeapi.getPokemonDetail = (pokemon) => {
         .then(convertPokeApiDetailToPokemon);
 };
 
-pokeapi.getPokemons = (offset = 0, limit = 10) => {
+pokeapi.getPokemons = (offset = 0, limit = 12) => {
     const url = `${API_URL}/pokemon?offset=${offset}&limit=${limit}`;
+    loadState();
 
     return fetch(url)
         .then((response) => response.json())
         .then((jsonBody) => jsonBody.results)
         .then((pokemons) => pokemons.map(pokeapi.getPokemonDetail))
         .then((detailRequests) =>  Promise.all(detailRequests))
-        .then((pokemonsDetails) => pokemonsDetails)
+        .then((pokemonsDetails) => {
+            loadState();
+            return pokemonsDetails;
+        })
         .catch((error) => console.error(error));
 };

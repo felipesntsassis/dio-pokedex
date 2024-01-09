@@ -1,11 +1,26 @@
 const pokemonList = document.getElementById('pokemon-list');
 const loadMoreButton = document.getElementById('btn-load-more');
+let isLoading = false;
 
 const maxRecords = 151;
-const limit = 10;
+const limit = 12;
 let offset = 0;
 
+function loadState(message = 'Aguarde...') {
+    isLoading = !isLoading;
 
+    if (isLoading) {
+        pokemonList.innerHTML += `
+            <li id="loader" class="loader-container">
+                <img src="assets/img/pokeball.svg" alt="${message}">
+                <h4>${message}</h4>
+            </li>
+        `;
+    } else {
+        const loader = document.getElementById('loader');
+        pokemonList.removeChild(loader);
+    }
+}
 
 function loadPokemonItems(offset, limit) {
     pokeapi.getPokemons(offset, limit).then((pokemons = []) => {
