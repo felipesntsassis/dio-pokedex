@@ -1,10 +1,21 @@
 const pokemonList = document.getElementById('pokemon-list');
 const loadMoreButton = document.getElementById('btn-load-more');
+const year = document.getElementById('year');
+year.innerHTML = new Date().getFullYear();
+
 let isLoading = false;
 
 const maxRecords = 151;
 const limit = 12;
 let offset = 0;
+
+function formatPokemonNumber(pokemonNumber) {
+    while(pokemonNumber.length < 3) {
+        pokemonNumber = `0${pokemonNumber}`
+    }
+
+    return pokemonNumber;
+}
 
 function loadState(message = 'Aguarde...') {
     isLoading = !isLoading;
@@ -36,22 +47,27 @@ function loadPokemonItems(offset, limit) {
     pokeapi.getPokemons(offset, limit).then((pokemons = []) => {
         const newHtml = pokemons.map(pokemon => `
             <li class="pokemon ${pokemon.type}">
-                <span class="number">#${pokemon.number}</span>
-                <span class="name">${pokemon.name}</span>
-                <div class="detail">
-                    <ol class="types">
-                        ${pokemon.types.map(type => `<li class="type ${type}">${type}</li>`).join('')}
-                    </ol>
-                    <img 
-                        src="${pokemon.photo}"
-                        alt="${pokemon.name}"
-                    >
-                </div>
+                <a href="/detail.html?pokemon=${pokemon.number}">
+                    <div class="title">
+                    <span class="name">${pokemon.name}</span>
+                    <span class="number">#${(formatPokemonNumber(pokemon.number + ''))}</span>
+                    </div>
+                    <div class="detail">
+                        <ol class="types">
+                            ${pokemon.types.map(type => `<li class="type ${type}">${type}</li>`).join('')}
+                        </ol>
+                        <img 
+                            src="${pokemon.photo}"
+                            alt="${pokemon.name}"
+                        >
+                    </div>
+                </a>
             </li>
         `).join('');
         pokemonList.innerHTML += newHtml;
     });
 }
+
 
 loadPokemonItems(offset, limit);
 

@@ -90,6 +90,14 @@
     background-repeat: no-repeat;
     background-size: 180px;
     background-position: 130% 30%;
+    cursor: pointer;
+    transform: scale(1);
+    transition: ease-in-out transform .2s;
+}
+
+.pokemon:hover {
+    opacity: .65;
+    transform: scale(1.050);
 }
 
 .pokemon .number {
@@ -101,10 +109,11 @@
 
 .pokemon .name {
     color: #fff;
-    margin-bottom: .0;
+    margin-bottom: 0;
     text-transform: capitalize;
 }
 
+.pokemon .title,
 .pokemon .detail {
     display: flex;
     flex-direction: row;
@@ -151,6 +160,14 @@
     border-radius: 1rem;
     color: #fff;
     font-size: .825rem;
+}
+
+.about {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 @media screen and (min-width: 380px) {
