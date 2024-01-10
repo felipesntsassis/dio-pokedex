@@ -10,15 +10,25 @@ function loadState(message = 'Aguarde...') {
     isLoading = !isLoading;
 
     if (isLoading) {
-        pokemonList.innerHTML += `
-            <li id="loader" class="loader-container">
-                <img src="assets/img/pokeball.svg" alt="${message}">
-                <h4>${message}</h4>
-            </li>
-        `;
+        loadMoreButton.setAttribute('disabled', true);
+        const loaderContainer = document.createElement('div');
+        loaderContainer.setAttribute('id', 'loader');
+        loaderContainer.classList.add('loader-container');
+
+        const pokeLogo = document.createElement('img');
+        pokeLogo.src = 'assets/img/pokeball.svg';
+        pokeLogo.alt = message;
+
+        const label = document.createElement('h4');
+        label.innerHTML = message;
+        
+        loaderContainer.appendChild(pokeLogo);
+        loaderContainer.appendChild(label);
+        pokemonList.after(loaderContainer);
+        loadMoreButton.removeAttribute('disabled', true);
     } else {
         const loader = document.getElementById('loader');
-        pokemonList.removeChild(loader);
+        loader.parentElement.removeChild(loader);
     }
 }
 
