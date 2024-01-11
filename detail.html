@@ -23,10 +23,49 @@
     <link rel="stylesheet" href="assets/css/pokedex.css">
     <link rel="preload" href="assets/img/pokeball.svg" as="image">
     <link rel="preload" href="assets/img/pokeball-bg.svg" as="image">
+
+    <script src="https://kit.fontawesome.com/d100176c75.js" crossorigin="anonymous">
+    </script>
 </head>
 <body>
-    <section class="content">
-        <h1></h1>
+    <section class="content detail grass">
+        <header>
+            <a href="index.html" title="Back">
+                <i class="fa-solid fa-arrow-left fa-2x"></i>
+            </a>
+            <div class="title">
+                <h1>Bulbasaur</h1>
+                <h3>#001</h3>
+            </div>
+            <ol class="types">
+                <li class="type grass">Grass</li>
+                <li class="type poison">Poison</li>
+            </ol>
+        </header>
+        <div class="pokemon-detail">
+            <nav class="tabs">
+                <a href="javascript:;" class="tab-item active" data-target="about">
+                    About
+                </a>
+                <a href="javascript:;" class="tab-item" data-target="base-stats">
+                    Base Stats
+                </a>
+                <a href="javascript:;" class="tab-item" data-target="evolution">
+                    Evolution
+                </a>
+                <a href="javascript:;" class="tab-item" data-target="moves">
+                    Moves
+                </a>
+            </nav>
+            <div class="tabs-container">
+                <div id="about" class="detail-tab active">
+
+                </div>
+                <div id="base-stats class="detail-tab"></div>
+                <div id="evolution" class="detail-tab"></div>
+                <div id="moves" class="detail-tab"></div>
+            </div>
+        </div>
     </section>
 
     <script src="assets/js/pokemon-model.js"></script>

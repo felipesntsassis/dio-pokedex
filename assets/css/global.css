@@ -26,6 +26,37 @@ button {
     background-color: #fff;
 }
 
+.content.detail {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    color: #fff;
+    padding: 0;
+}
+
+.content.detail header {
+    flex: 0;
+    width: 100%;
+    padding: 1rem;
+}
+
+.content.detail .pokemon-detail {
+    flex: auto;
+}
+
+.content.detail header a {
+    color: #ffffff;
+}
+
+.content.detail header .title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
 @media screen and (min-width: 992px) {
     .content {
         height: auto;
