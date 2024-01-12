@@ -44,10 +44,10 @@
         </header>
         <div class="pokemon-detail">
             <nav class="tabs">
-                <a href="javascript:;" class="tab-item active" data-target="about">
+                <a href="javascript:;" class="tab-item" data-target="about">
                     About
                 </a>
-                <a href="javascript:;" class="tab-item" data-target="base-stats">
+                <a href="javascript:;" class="tab-item active" data-target="base-stats">
                     Base Stats
                 </a>
                 <a href="javascript:;" class="tab-item" data-target="evolution">
@@ -58,12 +58,104 @@
                 </a>
             </nav>
             <div class="tabs-container">
-                <div id="about" class="detail-tab active">
+                <div id="about" class="detail-tab">
+                    <div class="detail-grid-data">
+                        <div class="grid-data">
+                            <div class="label">Species</div>
+                            <div class="data">Seed</div>
+    
+                            <div class="label">Height</div>
+                            <div class="data">0,70 cm</div>
+    
+                            <div class="label">Weight</div>
+                            <div class="data">6,9 Kg</div>
+    
+                            <div class="label">Abilities</div>
+                            <div class="data">Over</div>
+                        </div>
 
+                        <h3>Breeding</h3>
+
+                        <div class="grid-data">
+                            <div class="label">Gender</div>
+                            <div class="data">
+                                <span>
+                                    <i class="fa-solid fa-mars"></i> 87,5%
+                                </span>
+                                <span>
+                                    <i class="fa-solid fa-venus"></i> 12,5%
+                                </span>
+                            </div>
+
+                            <div class="label">Egg Groups</div>
+                            <div class="data">Monster</div>
+
+                            <div class="label">Egg Cycle</div>
+                            <div class="data">Grass</div>
+                        </div>
+
+                    </div>
                 </div>
-                <div id="base-stats class="detail-tab"></div>
-                <div id="evolution" class="detail-tab"></div>
-                <div id="moves" class="detail-tab"></div>
+                <div id="base-stats" class="detail-tab active">
+                    <div class="detail-grid-data">
+                        <div class="grid-data with-chart">
+                            <div class="label">HP</div>
+                            <div class="data">45</div>
+                            <div class="data-chart-bar">
+                                <span class="chart-data fire" style="width:45%;"></span>
+                            </div>
+
+                            <div class="label">Attack</div>
+                            <div class="data">60</div>
+                            <div class="data-chart-bar">
+                                <span class="chart-data grass" style="width:60%;"></span>
+                            </div>
+
+                            <div class="label">Defense</div>
+                            <div class="data">48</div>
+                            <div class="data-chart-bar">
+                                <span class="chart-data fire" style="width:48%;"></span>
+                            </div>
+
+                            <div class="label">Sp. Atk</div>
+                            <div class="data">65</div>
+                            <div class="data-chart-bar">
+                                <span class="chart-data grass" style="width:65%;"></span>
+                            </div>
+
+                            <div class="label">Sp. Def</div>
+                            <div class="data">65</div>
+                            <div class="data-chart-bar">
+                                <span class="chart-data grass" style="width:65%;"></span>
+                            </div>
+
+                            <div class="label">Speed</div>
+                            <div class="data">45</div>
+                            <div class="data-chart-bar">
+                                <span class="chart-data fire" style="width:45%;"></span>
+                            </div>
+
+                            <div class="label">Total</div>
+                            <div class="data">315</div>
+                            <div class="data-chart-bar">
+                                <span class="chart-data grass" style="width:75%;"></span>
+                            </div>
+                        </div>
+
+                        <h3>Type defenses</h3>
+                        <span>The effectiveness of each type on Bulbasaur.</span>
+                    </div>
+                </div>
+                <div id="evolution" class="detail-tab">
+                    <div class="detail-grid-data">
+                        <h3>Evolution</h3>
+                    </div>
+                </div>
+                <div id="moves" class="detail-tab">
+                    <div class="detail-grid-data">
+                        <h3>Moves</h3>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
