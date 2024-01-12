@@ -319,6 +319,42 @@
     color: #1e293b;
 }
 
+.evolution-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.evolution-list figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.evolution-list figure img {
+    width: 100%;
+    max-width: 280px;
+    background-image: url('/assets/img/pokeball.svg');
+    background-position: center center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.evolution-list figure:not(:last-child)::after {
+    font: var(--fa-font-solid);
+    content: '\f107';
+    font-size: 2.125rem;
+    color: #1e293b;
+}
+
+.evolution-list figure legend {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #1e293b;
+}
+
 @media screen and (min-width: 380px) {
     .pokemons {
         grid-template-columns: 1fr 1fr;
