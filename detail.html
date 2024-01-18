@@ -28,7 +28,7 @@
     </script>
 </head>
 <body>
-    <section class="content detail grass">
+    <section class="content detail">
         <header>
             <a href="index.html" title="Back">
                 <i class="fa-solid fa-arrow-left fa-2x"></i>
@@ -50,10 +50,10 @@
                 <a href="javascript:;" class="tab-item" data-target="base-stats">
                     Base Stats
                 </a>
-                <a href="javascript:;" class="tab-item active" data-target="evolution">
+                <a href="javascript:;" class="tab-item" data-target="evolution">
                     Evolution
                 </a>
-                <a href="javascript:;" class="tab-item" data-target="moves">
+                <a href="javascript:;" class="tab-item active" data-target="moves">
                     Moves
                 </a>
             </nav>
@@ -146,7 +146,7 @@
                         <span>The effectiveness of each type on Bulbasaur.</span>
                     </div>
                 </div>
-                <div id="evolution" class="detail-tab active">
+                <div id="evolution" class="detail-tab">
                     <div class="evolution-list">
                         <figure>
                             <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg" alt="Bulbasaur">
@@ -171,7 +171,7 @@
                         </figure>
                     </div>
                 </div>
-                <div id="moves" class="detail-tab">
+                <div id="moves" class="detail-tab active">
                     <div class="detail-grid-data">
                         <div class="detail-grid-data">
                             <h3>Moves</h3>
@@ -181,9 +181,17 @@
             </div>
         </div>
     </section>
+    <div id="page-loader" class="loader">
+        <div class="loader-content">
+            <img src="assets/img/pokeball.svg" alt="Pokeball">
+            <h3>Loading data...</h3>
+        </div>
+    </div>
 
+    <script src="assets/js/loader.js"></script>
+    <script src="assets/js/utils.js"></script>
     <script src="assets/js/pokemon-model.js"></script>
     <script src="assets/js/poke-api.js"></script>
-    <script src="assets/js/detail.js"></script>
+    <script src="assets/js/pages/detail.js"></script>
 </body>
 </html>

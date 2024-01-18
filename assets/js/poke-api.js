@@ -1,5 +1,6 @@
 const API_URL = 'https://pokeapi.co/api/v2';
 const pokeapi = {};
+const pokemons = [];
 
 function convertPokeApiDetailToPokemon(pokeDetail) {
     const pokemon = new Pokemon();
@@ -32,7 +33,8 @@ pokeapi.getPokemons = (offset = 0, limit = 12) => {
         .then((pokemons) => pokemons.map(pokeapi.getPokemonDetail))
         .then((detailRequests) =>  Promise.all(detailRequests))
         .then((pokemonsDetails) => {
-            loadState();
+            pokemonsDetails.forEach(pokemon => pokemons.push(pokemon));
+            // loadState();
             return pokemonsDetails;
         })
         .catch((error) => console.error(error));

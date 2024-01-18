@@ -1,23 +1,12 @@
 const pokemonList = document.getElementById('pokemon-list');
 const loadMoreButton = document.getElementById('btn-load-more');
-const year = document.getElementById('year');
-year.innerHTML = new Date().getFullYear();
-
 let isLoading = false;
 
 const maxRecords = 151;
 const limit = 12;
 let offset = 0;
 
-function formatPokemonNumber(pokemonNumber) {
-    while(pokemonNumber.length < 3) {
-        pokemonNumber = `0${pokemonNumber}`
-    }
-
-    return pokemonNumber;
-}
-
-function loadState(message = 'Aguarde...') {
+/*function loadState(message = 'Catching more Pokémons...') {
     isLoading = !isLoading;
 
     if (isLoading) {
@@ -26,14 +15,14 @@ function loadState(message = 'Aguarde...') {
         loaderContainer.setAttribute('id', 'loader');
         loaderContainer.classList.add('loader-container');
 
-        const pokeLogo = document.createElement('img');
-        pokeLogo.src = 'assets/img/pokeball.svg';
-        pokeLogo.alt = message;
+        const img = document.createElement('img');
+        img.src = 'assets/img/pokeball.svg';
+        img.alt = message;
 
         const label = document.createElement('h4');
         label.innerHTML = message;
         
-        loaderContainer.appendChild(pokeLogo);
+        loaderContainer.appendChild(img);
         loaderContainer.appendChild(label);
         pokemonList.after(loaderContainer);
         loadMoreButton.removeAttribute('disabled', true);
@@ -41,16 +30,16 @@ function loadState(message = 'Aguarde...') {
         const loader = document.getElementById('loader');
         loader.parentElement.removeChild(loader);
     }
-}
+}*/
 
 function loadPokemonItems(offset, limit) {
     pokeapi.getPokemons(offset, limit).then((pokemons = []) => {
         const newHtml = pokemons.map(pokemon => `
             <li class="pokemon ${pokemon.type}">
-                <a href="/detail.html?pokemon=${pokemon.number}">
+                <a onclick="selectPokemon(event, ${pokemon.number})">
                     <div class="title">
                     <span class="name">${pokemon.name}</span>
-                    <span class="number">#${(formatPokemonNumber(pokemon.number + ''))}</span>
+                    <span class="number">#${(formatHundred(pokemon.number + ''))}</span>
                     </div>
                     <div class="detail">
                         <ol class="types">
@@ -68,8 +57,21 @@ function loadPokemonItems(offset, limit) {
     });
 }
 
+function selectPokemon(event, id) {
+    event.preventDefault();
+    const pokemon = pokemons.find(p => p.number === id);
+    
+    if (pokemon) {
+        sessionStorage.setItem('pokemon', JSON.stringify(pokemon));
+        window.location = 'detail.html';
+    }
+}
 
 loadPokemonItems(offset, limit);
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('year').innerHTML = new Date().getFullYear();
+});
 
 loadMoreButton.addEventListener('click', () => {
     offset += limit;
