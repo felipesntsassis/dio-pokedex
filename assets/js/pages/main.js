@@ -6,32 +6,6 @@ const maxRecords = 151;
 const limit = 12;
 let offset = 0;
 
-/*function loadState(message = 'Catching more Pokémons...') {
-    isLoading = !isLoading;
-
-    if (isLoading) {
-        loadMoreButton.setAttribute('disabled', true);
-        const loaderContainer = document.createElement('div');
-        loaderContainer.setAttribute('id', 'loader');
-        loaderContainer.classList.add('loader-container');
-
-        const img = document.createElement('img');
-        img.src = 'assets/img/pokeball.svg';
-        img.alt = message;
-
-        const label = document.createElement('h4');
-        label.innerHTML = message;
-        
-        loaderContainer.appendChild(img);
-        loaderContainer.appendChild(label);
-        pokemonList.after(loaderContainer);
-        loadMoreButton.removeAttribute('disabled', true);
-    } else {
-        const loader = document.getElementById('loader');
-        loader.parentElement.removeChild(loader);
-    }
-}*/
-
 function loadPokemonItems(offset, limit) {
     pokeapi.getPokemons(offset, limit).then((pokemons = []) => {
         const newHtml = pokemons.map(pokemon => `
@@ -54,7 +28,21 @@ function loadPokemonItems(offset, limit) {
             </li>
         `).join('');
         pokemonList.innerHTML += newHtml;
+        window.scrollTo(0, document.body.scrollHeight - 100);
     });
+}
+
+function loadPage(message = 'Please wait...') {
+    isLoading = !isLoading;
+    
+    if (isLoading) {
+        loadMoreButton.setAttribute('disabled', isLoading);
+        pokemonList.after(createInlineLoader(message));
+    } else {
+        const loader = document.getElementById('loader');
+        loadMoreButton.removeAttribute('disabled');
+        loader.parentElement.removeChild(loader);
+    }
 }
 
 function selectPokemon(event, id) {
@@ -84,4 +72,8 @@ loadMoreButton.addEventListener('click', () => {
     } else {
         loadPokemonItems(offset, limit);
     }
+
+    setTimeout(() => {
+        
+    }, 1000);
 });

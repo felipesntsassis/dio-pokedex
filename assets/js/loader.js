@@ -21,7 +21,20 @@ function createPageLoader() {
     body.appendChild(pageLoader);
 }
 
-function createListLoader() {
-    
+function createInlineLoader(message = 'Please wait...') {
+    const loaderContainer = document.createElement('div');
+    loaderContainer.setAttribute('id', 'loader');
+    loaderContainer.classList.add('loader-container');
 
+    const img = document.createElement('img');
+    img.src = 'assets/img/pokeball.svg';
+    img.alt = message;
+
+    const label = document.createElement('h4');
+    label.innerHTML = message;
+    
+    loaderContainer.appendChild(img);
+    loaderContainer.appendChild(label);
+
+    return loaderContainer;
 }
