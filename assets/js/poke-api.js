@@ -6,15 +6,39 @@ function convertPokeApiDetailToPokemon(pokeDetail) {
     const pokemon = new Pokemon();
     pokemon.number = pokeDetail.id;
     pokemon.name = pokeDetail.name;
+    pokemon.height = parseDmToCm(pokeDetail.height);
+    pokemon.weight = parseHgToKg(pokeDetail.weight);
 
     const types = pokeDetail.types.map(typeSlot => typeSlot.type.name);
-    const [type] = types;
-
     pokemon.types = types;
+
+    const [type] = types;
     pokemon.type = type;
     pokemon.photo = pokeDetail.sprites.other.dream_world.front_default;
 
     return pokemon;
+}
+
+pokeapi.getData = (url) => {
+    return fetch(url).then((response) => response.json());
+}
+
+pokeapi.getGenderData = (genderRate) => {
+    let gender = 'Male and Female';
+
+    if (genderRate === -1) {
+        gender = 'Without Gender';
+    } else if (genderRate === 0) {
+        gender = 'Only Male';
+    } else if (genderRate === 8) {
+        gender = 'Only Female'
+    }
+
+    return gender;
+}
+
+pokeapi.getPokemonData = (id) => {
+    return pokeapi.getData(`${API_URL}/pokemon/${id}`);
 }
 
 pokeapi.getPokemonDetail = (pokemon) => {
@@ -39,3 +63,7 @@ pokeapi.getPokemons = (offset = 0, limit = 12) => {
         })
         .catch((error) => console.error(error));
 };
+
+pokeapi.getSpeciesData = async (id) => {
+    return pokeapi.getData(`${API_URL}/pokemon-species/${id}`);
+}

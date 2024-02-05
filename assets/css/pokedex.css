@@ -205,24 +205,28 @@
 /** Home Page END **/
 
 /** Detail Page **/
+.detail .title {
+    text-transform: capitalize;
+}
+
 .pokemon-detail {
     display: flex;
     flex-direction: column;
+    position: relative;
     background-color: #ffffff;
     border-radius: 2.5rem 2.5rem 0 0;
     width: 100%;
     margin-top: 8rem;
+    padding-top: 4rem;
 }
 
-.pokemon-detail::before {
-    content: '';
-    margin: calc((15rem/2) * -1) auto 0 auto;
-    height: 10rem;
+.pokemon-detail #pokemon-picture {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -65%);
     width: 10rem;
-    background-image: url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg');
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: contain;
+    height: 10rem;
 }
 
 .pokemon-detail .tabs {

@@ -1,7 +1,8 @@
-const body = document.getElementsByTagName('body');
+const body = document.getElementsByTagName('body')[0];
+let loading = false;
 let pageLoader;
 
-function createPageLoader() {
+function createPageLoader(message = 'Please wait...') {
     const base = document.createElement('div');
     base.setAttribute('id', 'page-loader');
     base.classList.add('loader', 'hide');
@@ -14,11 +15,23 @@ function createPageLoader() {
     img.alt = 'Pokéball';
     
     const h3 = document.createElement('h3');
+    h3.innerHTML = message;
     
-    content.appendChild(img, h3);
+    content.appendChild(img);
+    content.appendChild(h3);
     base.appendChild(content);
     pageLoader = base;
     body.appendChild(pageLoader);
+}
+
+function loadPageState() {
+    loading = !loading;
+
+    if (loading) {
+        pageLoader.classList.remove('hide');
+    } else {
+        pageLoader.classList.add('hide');
+    }
 }
 
 function createInlineLoader(message = 'Please wait...') {

@@ -5,3 +5,11 @@ function formatHundred(pokemonNumber) {
 
     return pokemonNumber;
 }
+
+function parseHgToKg(value = 0) {
+    return value / 10;
+}
+
+function parseDmToCm(value) {
+    return value * 10;
+}

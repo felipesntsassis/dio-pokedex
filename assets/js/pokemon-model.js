@@ -1,7 +1,14 @@
 class Pokemon {
     number;
     name;
+    description;
+    gender;
     type;
-    types = [];
     photo;
+    height;
+    weight;
+    specie;
+    types = [];
+    abilities = [];
+    eggGroups = [];
 };

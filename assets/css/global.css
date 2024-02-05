@@ -19,6 +19,10 @@ button {
     cursor: pointer;
 }
 
+.capitalize {
+    text-transform: capitalize;
+}
+
 .content {
     height: 100vh;
     width: 100vw;
@@ -93,6 +97,10 @@ button {
     width: 20vw;
     height: 20vh;
     animation: spin 4s linear infinite;
+}
+
+.hidden {
+    display: none;
 }
 
 @media screen and (min-width: 992px) {

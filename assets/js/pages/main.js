@@ -6,6 +6,10 @@ const maxRecords = 151;
 const limit = 12;
 let offset = 0;
 
+if (sessionStorage.getItem('pokemon')) {
+    sessionStorage.removeItem('pokemon');
+}
+
 function loadPokemonItems(offset, limit) {
     pokeapi.getPokemons(offset, limit).then((pokemons = []) => {
         const newHtml = pokemons.map(pokemon => `

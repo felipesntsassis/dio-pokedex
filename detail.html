@@ -28,23 +28,24 @@
     </script>
 </head>
 <body>
-    <section class="content detail">
+    <section class="content detail hidden">
         <header>
             <a href="index.html" title="Back">
                 <i class="fa-solid fa-arrow-left fa-2x"></i>
             </a>
             <div class="title">
-                <h1>Bulbasaur</h1>
-                <h3>#001</h3>
+                <h1>Pokémon Name</h1>
+                <h3>#000</h3>
             </div>
-            <ol class="types">
-                <li class="type grass">Grass</li>
-                <li class="type poison">Poison</li>
-            </ol>
+            <ol class="types"></ol>
         </header>
         <div class="pokemon-detail">
+            <img id="pokemon-picture" 
+                src="https://placehold.co/160x160"
+                alt="Pokémon"
+            >
             <nav class="tabs">
-                <a href="javascript:;" class="tab-item" data-target="about">
+                <a href="javascript:;" class="tab-item active" data-target="about">
                     About
                 </a>
                 <a href="javascript:;" class="tab-item" data-target="base-stats">
@@ -53,14 +54,14 @@
                 <a href="javascript:;" class="tab-item" data-target="evolution">
                     Evolution
                 </a>
-                <a href="javascript:;" class="tab-item active" data-target="moves">
+                <a href="javascript:;" class="tab-item" data-target="moves">
                     Moves
                 </a>
             </nav>
             <div class="tabs-container">
-                <div id="about" class="detail-tab">
+                <div id="about" class="detail-tab active">
                     <h3>About</h3>
-                    <div class="detail-grid-data">
+                    <!-- <div class="detail-grid-data">
                         <div class="grid-data">
                             <div class="label">Species</div>
                             <div class="data">Seed</div>
@@ -70,7 +71,7 @@
     
                             <div class="label">Weight</div>
                             <div class="data">6,9 Kg</div>
-    
+
                             <div class="label">Abilities</div>
                             <div class="data">Over</div>
                         </div>
@@ -94,8 +95,7 @@
                             <div class="label">Egg Cycle</div>
                             <div class="data">Grass</div>
                         </div>
-
-                    </div>
+                    </div> -->
                 </div>
                 <div id="base-stats" class="detail-tab">
                     <div class="detail-grid-data">
@@ -171,7 +171,7 @@
                         </figure>
                     </div>
                 </div>
-                <div id="moves" class="detail-tab active">
+                <div id="moves" class="detail-tab">
                     <div class="detail-grid-data">
                         <div class="detail-grid-data">
                             <h3>Moves</h3>
@@ -181,12 +181,6 @@
             </div>
         </div>
     </section>
-    <div id="page-loader" class="loader">
-        <div class="loader-content">
-            <img src="assets/img/pokeball.svg" alt="Pokeball">
-            <h3>Loading data...</h3>
-        </div>
-    </div>
 
     <script src="assets/js/loader.js"></script>
     <script src="assets/js/utils.js"></script>
