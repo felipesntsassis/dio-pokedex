@@ -1,12 +1,10 @@
-let pokemon;
-
 const section = document.getElementsByTagName('section')[0];
 const pokemonName = document.querySelector('.title h1');
 const pokemonNumber = document.querySelector('.title h3');
 const pokemonPicture = document.getElementById('pokemon-picture');
 const typeList = document.querySelector('.types');
 const aboutTab = document.getElementById('about');
-
+const baseStatsTab = document.getElementById('base-stats');
 
 const tabs = document.querySelectorAll('.tab-item');
 tabs.forEach(tab => {
@@ -19,24 +17,41 @@ tabs.forEach(tab => {
     });
 });
 
+let pokemon;
+let pokemonDetails;
+
+function getStatRow(stat) {
+    let color = 'fire';
+
+    if (stat.value > 60) {
+        color = 'grass';
+    } else if (stat.value > 30 && stat.value <= 60) {
+        color = 'fighting';
+    }
+
+    return `
+        <div class="label">${stat.type}</div>
+        <div class="data">${stat.value}</div>
+        <div class="data-chart-bar">
+            <span class="chart-data ${color}" style="width:${stat.type !== 'Total' ? stat.value : '100'}%;"></span>
+        </div>
+    `;
+}
+
 async function loadAboutTabData() {
-    const details = await pokeapi.getPokemonData(pokemon.number);
     const speciesData = await pokeapi.getSpeciesData(pokemon.number);
-    pokemon.specie
     pokemon.description = speciesData.flavor_text_entries.find(
         entry => entry.language.name === 'en'
     ).flavor_text;
-    pokemon.height = parseDmToCm(details.height);
-    pokemon.weight = parseHgToKg(details.weight);
-    pokemon.abilities = details.abilities.map(ab => ab.ability.name);
+    pokemon.height = parseDmToCm(pokemonDetails.height);
+    pokemon.weight = parseHgToKg(pokemonDetails.weight);
+    pokemon.abilities = pokemonDetails.abilities.map(ab => ab.ability.name);
     pokemon.gender = pokeapi.getGenderData(speciesData.gender_rate);
     pokemon.eggGroups = speciesData.egg_groups.map(egg => egg.name);
     
     const tabContent = `
         <div class="detail-grid-data">
             <div class="grid-data">
-                <div class="label">Species</div>
-                <div class="data"></div>
                 <div class="label">Height</div>
                 <div class="data">${pokemon.height} cm</div>
                 <div class="label">Weight</div>
@@ -58,8 +73,44 @@ async function loadAboutTabData() {
     aboutTab.innerHTML += tabContent;
 }
 
+function loadBaseStatsTabData() {
+    const stats = pokemonDetails.stats.map(s => {
+        let statName = s.stat.name.toUpperCase();
+
+        switch(statName) {
+            case 'ATTACK':
+                statName = 'Attack';
+                break;
+            case 'DEFENSE':
+                statName = 'Defense';
+                break;
+            case 'SPECIAL-ATTACK':
+                statName = 'Sp. Atk';
+                break;
+            case 'SPECIAL-DEFENSE':
+                statName = 'Sp. Def';
+                break;
+            case 'SPEED':
+                statName = 'Speed';
+                break;
+        }
+
+        return new Stat(statName, s.base_stat);
+    });
+    const total = stats.map(s => s.value).reduce((prev, next) => prev + next, 0);
+    stats.push(new Stat('Total', total));
+
+    const tabContent = `
+        <div class="detail-grid-data">
+            <div class="grid-data with-chart">
+                ${stats.map(s => getStatRow(s)).join('')}
+            </div>
+        </div>
+    `;
+    baseStatsTab.innerHTML = tabContent;
+}
+
 function loadBaseData() {
-    pokemon = JSON.parse(sessionStorage.getItem('pokemon'));
     section.classList.add(pokemon.type);
     pokemonName.innerHTML = pokemon.name;
     pokemonNumber.innerHTML = '#' + formatHundred(`${pokemon.number}`);
@@ -69,14 +120,18 @@ function loadBaseData() {
     pokemonPicture.alt = `Pokémon ${pokemon.name}`;
 }
 
-function loadPokemonDetails() {
+async function loadPokemonDetails() {
     try {
         if (!sessionStorage.getItem('pokemon'))
             throw new Error('Please, select a Pokémon from catalog!');
 
+        pokemon = JSON.parse(sessionStorage.getItem('pokemon'));
+        pokemonDetails = await pokeapi.getPokemonData(pokemon.number);
+        console.log(pokemonDetails);
         loadPageState();
         loadBaseData();
         loadAboutTabData();
+        loadBaseStatsTabData();
         loadPageState();
     } catch (err) {
         alert(err.message);
