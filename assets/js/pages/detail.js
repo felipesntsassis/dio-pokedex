@@ -20,7 +20,7 @@ tabs.forEach(tab => {
 
 let pokemon;
 let pokemonDetails;
-let evolutionChain;
+let evolutions;
 
 function getStatRow(stat) {
     let color = 'fire';
@@ -148,9 +148,7 @@ async function loadPokemonDetails() {
         debugger
         pokemon = JSON.parse(sessionStorage.getItem('pokemon'));
         pokemonDetails = await pokeapi.getPokemonData(pokemon.number);
-        const evolutionChain = await pokeapi.getEvolutionChain(pokemon.number);
-        const evolutions = await processEvolutionChain(evolutionChain);
-        // const evolutions = await processEvolutionChain(evolutionChain);
+        const evolutions = await pokeapi.getEvolutions(pokemon.number);
 
         loadBaseData();
         loadAboutTabData();

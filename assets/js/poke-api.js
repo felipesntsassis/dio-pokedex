@@ -23,9 +23,12 @@ pokeapi.getData = (url) => {
     return fetch(url).then((response) => response.json());
 }
 
-pokeapi.getEvolutionChain = (id) => {
+pokeapi.getEvolutions = (id) => {
     return fetch(`${API_URL}/evolution-chain/${id}`)
-        .then((response) => response.json());
+        .then((response) => response.json())
+        .then((data) => data.chain)
+        .then((chain) => chain)
+        .catch((error) => console.error(error));
 }
 
 pokeapi.getGenderData = (genderRate) => {
@@ -58,7 +61,7 @@ pokeapi.getPokemons = (offset = 0, limit = 12) => {
 
     return fetch(url)
         .then((response) => response.json())
-        .then((jsonBody) => jsonBody.results)
+        .then((data) => data.results)
         .then((pokemons) => pokemons.map(pokeapi.getPokemonDetail))
         .then((detailRequests) =>  Promise.all(detailRequests))
         .then((pokemonsDetails) => {
