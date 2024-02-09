@@ -5,6 +5,7 @@ const pokemonPicture = document.getElementById('pokemon-picture');
 const typeList = document.querySelector('.types');
 const aboutTab = document.getElementById('about');
 const baseStatsTab = document.getElementById('base-stats');
+const evolutionTab = document.getElementById('evolution');
 
 const tabs = document.querySelectorAll('.tab-item');
 tabs.forEach(tab => {
@@ -19,6 +20,7 @@ tabs.forEach(tab => {
 
 let pokemon;
 let pokemonDetails;
+let evolutionChain;
 
 function getStatRow(stat) {
     let color = 'fire';
@@ -73,6 +75,17 @@ async function loadAboutTabData() {
     aboutTab.innerHTML += tabContent;
 }
 
+function loadBaseData() {
+    section.classList.add(pokemon.type);
+    pokemonName.innerHTML = pokemon.name;
+    pokemonNumber.innerHTML = '#' + formatHundred(`${pokemon.number}`);
+    typeList.innerHTML = pokemon.types.map(type => `<li class="type ${type}">${type}</li>`)
+        .join('');
+    pokemonPicture.src = pokemon.photo;
+    pokemonPicture.alt = `Pokémon ${pokemon.name}`;
+}
+
+
 function loadBaseStatsTabData() {
     const stats = pokemonDetails.stats.map(s => {
         let statName = s.stat.name.toUpperCase();
@@ -110,14 +123,19 @@ function loadBaseStatsTabData() {
     baseStatsTab.innerHTML = tabContent;
 }
 
-function loadBaseData() {
-    section.classList.add(pokemon.type);
-    pokemonName.innerHTML = pokemon.name;
-    pokemonNumber.innerHTML = '#' + formatHundred(`${pokemon.number}`);
-    typeList.innerHTML = pokemon.types.map(type => `<li class="type ${type}">${type}</li>`)
-        .join('');
-    pokemonPicture.src = pokemon.photo;
-    pokemonPicture.alt = `Pokémon ${pokemon.name}`;
+function loadEvolutionTabData(evolutions = []) {
+    let tabContent = '<div class="evolution-list">';
+    tabContent += evolutions.map((ev, index) => `
+        <figure>
+            <img src="${ev.photo}" alt="${ev.name}">
+            <legend>
+                ${ev.name}
+            </legend>
+        </figure>
+        ${index < evolutions.length ? '<i class="fa-solid fa-arrow-right"></i>' : '' }
+    `).join('');
+    tabContent += '</div>';
+    evolutionTab.innerHTML = tabContent;
 }
 
 async function loadPokemonDetails() {
@@ -125,18 +143,38 @@ async function loadPokemonDetails() {
         if (!sessionStorage.getItem('pokemon'))
             throw new Error('Please, select a Pokémon from catalog!');
 
+        loadPageState();
+
+        debugger
         pokemon = JSON.parse(sessionStorage.getItem('pokemon'));
         pokemonDetails = await pokeapi.getPokemonData(pokemon.number);
-        console.log(pokemonDetails);
-        loadPageState();
+        const evolutionChain = await pokeapi.getEvolutionChain(pokemon.number);
+        const evolutions = await processEvolutionChain(evolutionChain);
+        // const evolutions = await processEvolutionChain(evolutionChain);
+
         loadBaseData();
         loadAboutTabData();
         loadBaseStatsTabData();
+
+        // loadEvolutionTabData(evolutions);
+
         loadPageState();
     } catch (err) {
         alert(err.message);
         window.location = 'index.html';
     }
+}
+
+async function processEvolutionChain(evolutionChain) {
+    const evolutions = [];
+
+    async function processChain(chain) {
+        
+    }
+
+    await processChain(evolutionChain.chain);
+
+    return evolutions;
 }
 
 createPageLoader('Getting the Pokémon data...');

@@ -23,6 +23,11 @@ pokeapi.getData = (url) => {
     return fetch(url).then((response) => response.json());
 }
 
+pokeapi.getEvolutionChain = (id) => {
+    return fetch(`${API_URL}/evolution-chain/${id}`)
+        .then((response) => response.json());
+}
+
 pokeapi.getGenderData = (genderRate) => {
     let gender = 'Male and Female';
 
