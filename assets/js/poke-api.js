@@ -34,7 +34,6 @@ pokeapi.getData = (url) => {
 };
 
 pokeapi.getEvolutions = async (id) => {
-    debugger
     const pokemonInfo = await pokeapi.getSpeciesData(id);
     const data = await pokeapi.getData(pokemonInfo.evolution_chain.url);
     const evolutionChain = data.chain;
@@ -85,7 +84,7 @@ pokeapi.getPokemons = (offset = 0, limit = 12) => {
 
     return fetch(url)
         .then((response) => response.json())
-        .then((jsonBody) => jsonBody.results)
+        .then((data) => data.results)
         .then((pokemons) => pokemons.map(pokeapi.getPokemonDetail))
         .then((detailRequests) =>  Promise.all(detailRequests))
         .then((pokemonsDetails) => {

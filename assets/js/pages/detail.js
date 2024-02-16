@@ -20,7 +20,7 @@ tabs.forEach(tab => {
 
 let pokemon;
 let pokemonDetails;
-let evolutionChain;
+let evolutions;
 
 function getStatRow(stat) {
     let color = 'fire';
