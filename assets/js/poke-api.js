@@ -2,6 +2,16 @@ const API_URL = 'https://pokeapi.co/api/v2';
 const pokeapi = {};
 const pokemons = [];
 
+function buildEvolutionList(chain, list) {
+    list.push(chain.species.name);
+
+    if (chain.evolves_to && chain.evolves_to.length > 0) {
+        chain.evolves_to.forEach(evolution => {
+            buildEvolutionList(evolution, list);
+        });
+    }
+}
+
 function convertPokeApiDetailToPokemon(pokeDetail) {
     const pokemon = new Pokemon();
     pokemon.number = pokeDetail.id;
@@ -21,12 +31,29 @@ function convertPokeApiDetailToPokemon(pokeDetail) {
 
 pokeapi.getData = (url) => {
     return fetch(url).then((response) => response.json());
-}
+};
 
-pokeapi.getEvolutionChain = (id) => {
-    return fetch(`${API_URL}/evolution-chain/${id}`)
-        .then((response) => response.json());
-}
+pokeapi.getEvolutions = async (id) => {
+    debugger
+    const pokemonInfo = await pokeapi.getSpeciesData(id);
+    const data = await pokeapi.getData(pokemonInfo.evolution_chain.url);
+    const evolutionChain = data.chain;
+
+    const evolutions = [];
+    buildEvolutionList(evolutionChain, evolutions);
+
+    if (evolutions.length > 1) {
+        const pokemonList = Promise.all(evolutions.map(async (p) => {
+            const detail = await pokeapi.getPokemonData(p)
+                .then(convertPokeApiDetailToPokemon);
+            return detail;
+        }));
+
+        return pokemonList;
+    }
+
+    return [];
+};
 
 pokeapi.getGenderData = (genderRate) => {
     let gender = 'Male and Female';

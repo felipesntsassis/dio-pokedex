@@ -125,16 +125,21 @@ function loadBaseStatsTabData() {
 
 function loadEvolutionTabData(evolutions = []) {
     let tabContent = '<div class="evolution-list">';
-    tabContent += evolutions.map((ev, index) => `
-        <figure>
-            <img src="${ev.photo}" alt="${ev.name}">
-            <legend>
-                ${ev.name}
-            </legend>
-        </figure>
-        ${index < evolutions.length ? '<i class="fa-solid fa-arrow-right"></i>' : '' }
-    `).join('');
-    tabContent += '</div>';
+
+    if (evolutions.length > 0) {
+        tabContent += evolutions.map((ev, index) => `
+            <figure>
+                <img src="${ev.photo}" alt="${ev.name}">
+                <legend>
+                    ${ev.name}
+                </legend>
+            </figure>
+        `).join('');
+        tabContent += '</div>';
+    } else {
+        tabContent += `<p class="no-data">The <span class="capitalize">${pokemon.name}</span> haven't an evolution chain.</p>`
+    }
+
     evolutionTab.innerHTML = tabContent;
 }
 
@@ -145,18 +150,14 @@ async function loadPokemonDetails() {
 
         loadPageState();
 
-        debugger
         pokemon = JSON.parse(sessionStorage.getItem('pokemon'));
         pokemonDetails = await pokeapi.getPokemonData(pokemon.number);
-        const evolutionChain = await pokeapi.getEvolutionChain(pokemon.number);
-        const evolutions = await processEvolutionChain(evolutionChain);
-        // const evolutions = await processEvolutionChain(evolutionChain);
-
+        const evolutions = await pokeapi.getEvolutions(pokemon.number);
         loadBaseData();
         loadAboutTabData();
         loadBaseStatsTabData();
 
-        // loadEvolutionTabData(evolutions);
+        loadEvolutionTabData(evolutions);
 
         loadPageState();
     } catch (err) {
@@ -167,13 +168,6 @@ async function loadPokemonDetails() {
 
 async function processEvolutionChain(evolutionChain) {
     const evolutions = [];
-
-    async function processChain(chain) {
-        
-    }
-
-    await processChain(evolutionChain.chain);
-
     return evolutions;
 }
 

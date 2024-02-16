@@ -103,6 +103,15 @@ button {
     display: none;
 }
 
+.no-data {
+    width: 100%;
+    text-align: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
 @media screen and (min-width: 992px) {
     .content {
         height: auto;
