@@ -6,6 +6,7 @@ const typeList = document.querySelector('.types');
 const aboutTab = document.getElementById('about');
 const baseStatsTab = document.getElementById('base-stats');
 const evolutionTab = document.getElementById('evolution');
+const movesTab = document.getElementById('moves');
 
 const tabs = document.querySelectorAll('.tab-item');
 tabs.forEach(tab => {
@@ -143,6 +144,24 @@ function loadEvolutionTabData(evolutions = []) {
     evolutionTab.innerHTML = tabContent;
 }
 
+function loadMoveTabData(moves = []) {
+    let tabContent = '<div class="detail-grid-data">';
+
+    if (moves.length > 0) {
+        tabContent += '<div class="grid-data">'
+        tabContent += moves.map(move => (`
+            <div class="label capitalize">${move.name}</div>
+            <div class="data">${move.description}</div>
+        `)).join('');
+        tabContent += '</div>'
+    } else {
+        tabContent += `<p class="no-data">Cannot be found the The <span class="capitalize">${pokemon.name}</span> move's list.</p>`
+    }
+
+    tabContent += '</div>'
+    movesTab.innerHTML = tabContent;
+}
+
 async function loadPokemonDetails() {
     try {
         if (!sessionStorage.getItem('pokemon'))
@@ -153,11 +172,12 @@ async function loadPokemonDetails() {
         pokemon = JSON.parse(sessionStorage.getItem('pokemon'));
         pokemonDetails = await pokeapi.getPokemonData(pokemon.number);
         const evolutions = await pokeapi.getEvolutions(pokemon.number);
+        const moves = await pokeapi.getMovies(pokemon.number);
         loadBaseData();
         loadAboutTabData();
         loadBaseStatsTabData();
-
         loadEvolutionTabData(evolutions);
+        loadMoveTabData(moves)
 
         loadPageState();
     } catch (err) {

@@ -68,6 +68,30 @@ pokeapi.getGenderData = (genderRate) => {
     return gender;
 }
 
+pokeapi.getMovies = async (id) => {
+    const pokemon = await pokeapi.getPokemonData(id);
+    const moveList = Promise.all(pokemon.moves.map(async (move) => {
+        let moveName = move.move.name;
+        let moveUrl = move.move.url;
+
+        const moveData = await fetch(moveUrl).then(response => response.json())
+            .then(moveDetails => {
+                let description = "Haven't description";
+
+                if (moveDetails.effect_entries && moveDetails.effect_entries.length > 0) {
+                    description = moveDetails.effect_entries[0].short_effect;
+                }
+
+                return new Move(moveName, description);
+            })
+            .catch(err => console.error('Error to search pokemon move data', err));
+        
+        return moveData;
+    }));
+
+    return moveList;
+}
+
 pokeapi.getPokemonData = (id) => {
     return pokeapi.getData(`${API_URL}/pokemon/${id}`);
 }
