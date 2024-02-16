@@ -1,1 +1,3 @@
-# Trilha JS Developer - Pokedex
+![Pokedex](assets/img/logo.svg "Podedex")
+
+### Projeto de exemplo 
