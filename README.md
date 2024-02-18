@@ -6,6 +6,21 @@
 
 Primeiro desafio do curso de bootcamp **Desenvolvimento Front-end Angular** da onde implemento uma Pokeagenda baseada nos Pokemons da primeira geração.
 
+## 💻 Screenshots
+<div align="center">
+    <img src="/docs/desktop.png" alt="Tela inicial no desktop" style="width: 60vh">
+    <img src="/docs/mobile-1.png" alt="Tela inicial em dispositivos móveis" style="width: 60vh">
+    <img src="/docs/mobile-2.png" alt="Detalhe do Pokemon  dispositivos móveis" style="width: 60vh">
+</div>
+
+<div align="center" style="margin: 0 4rem";>
+    <p>Confira o projeto em produção:</p>
+    <a href="https://pokedex-delta-nine.vercel.app" style="background-color: #e74c3c; color: #fff; padding: 1rem 1.2rem; border-radius: 5px; text-align: center;">
+        CLICANDO AQUI
+    </a>
+</div>
+
+
 ## 🛠 Tecnologias Utilizadas
 
 * [HTML](https://developer.mozilla.org/pt-BR/docs/Web/HTML)
@@ -14,15 +29,6 @@ Primeiro desafio do curso de bootcamp **Desenvolvimento Front-end Angular** da o
 
 ## 🛠 API
 * [Poké API](https://pokeapi.co/)
-
-## 💻 Screenshots
-<div align="center">
-    <img src="/docs/desktop.png" alt="Tela inicial no desktop" style="width: 60vh">
-    <img src="/docs/mobile-1.png" alt="Tela inicial em dispositivos móveis" style="width: 60vh">
-    <img src="/docs/mobile-2.png" alt="Detalhe do Pokemon  dispositivos móveis" style="width: 60vh">
-</div>
-
-
 
 ## 🚀 Instalando e rodando
 
